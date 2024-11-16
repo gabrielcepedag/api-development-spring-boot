@@ -46,7 +46,7 @@ public class AuthController {
 
             return custResponseBuilder.buildResponse(HttpStatus.OK.value(), "Usuario logueado correctamente!", response);
         } else {
-            throw new UnauthorizedException();
+            throw new UnauthorizedException("Username and Password incorrect");
         }
     }
 }

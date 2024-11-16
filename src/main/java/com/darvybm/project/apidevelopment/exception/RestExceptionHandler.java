@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.server.MethodNotAllowedException;
 
 import java.util.List;
 import java.util.Objects;
@@ -48,9 +50,19 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(BadRequestException.class)
     @ResponseBody
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     public ResponseEntity<?> resolveException(BadRequestException exception) {
         System.out.println("Paso por BadRequestException: ");
         return exception.getApiResponse();
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    @ResponseBody
+    @ResponseStatus(code = HttpStatus.METHOD_NOT_ALLOWED)
+    public ResponseEntity<?> resolveException(HttpRequestMethodNotSupportedException exception) {
+        System.out.println("Paso por MethodNotAllowedException: ");
+
+        return custResponseBuilder.buildResponse(HttpStatus.METHOD_NOT_ALLOWED.value(), "Method not allowed", exception.getMessage());
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
