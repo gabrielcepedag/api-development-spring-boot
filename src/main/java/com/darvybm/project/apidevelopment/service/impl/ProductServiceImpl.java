@@ -3,6 +3,7 @@ package com.darvybm.project.apidevelopment.service.impl;
 import com.darvybm.project.apidevelopment.dto.request.ProductRequest;
 import com.darvybm.project.apidevelopment.exception.BadRequestException;
 import com.darvybm.project.apidevelopment.exception.ResourceNotFoundException;
+import com.darvybm.project.apidevelopment.model.Category;
 import com.darvybm.project.apidevelopment.model.Product;
 import com.darvybm.project.apidevelopment.repository.ProductRepository;
 import com.darvybm.project.apidevelopment.service.ProductService;
@@ -25,10 +26,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product save(ProductRequest productRequest) {
+        Category category = categoryService.getById(productRequest.getCategoryId());
         try {
             Product product = modelMapper.map(productRequest, Product.class);
             product.setId(UUID.randomUUID());
-            product.setCategory(categoryService.getById(UUID.fromString(productRequest.getCategoryId())));
+            product.setCategory(category);
             return productRepository.save(product);
         } catch (Exception e) {
             throw new BadRequestException("Error saving product", e.getMessage());
@@ -48,9 +50,13 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product update(UUID id, ProductRequest productRequest) {
         Product product = findById(id);
+<<<<<<< Updated upstream
+=======
+        Category category = categoryService.getById(productRequest.getCategoryId());
+>>>>>>> Stashed changes
         try {
             modelMapper.map(productRequest, product);
-            product.setCategory(categoryService.getById(UUID.fromString(productRequest.getCategoryId())));
+            product.setCategory(category);
             return productRepository.save(product);
         } catch (Exception e) {
             throw new BadRequestException("Error updating product", e.getMessage());

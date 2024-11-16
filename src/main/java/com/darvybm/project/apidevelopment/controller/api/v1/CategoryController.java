@@ -50,6 +50,6 @@ public class CategoryController {
     @DeleteMapping("/{uuid}")
     public ResponseEntity<?> deleteCategory(@PathVariable UUID uuid) {
         categoryService.deleteById(uuid);
-        return custResponseBuilder.ok(null, "User was successfully deleted");
+        return custResponseBuilder.ok(null, "Category was successfully deleted");
     }
 }

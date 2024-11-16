@@ -23,7 +23,7 @@ public class Product {
     private String description;
     private Double price;
     private Integer stockQuantity;
-    private Boolean isActive;
+    private Boolean isActive = true;
     private String supplier;
     private Category category;
     private Boolean deleted = false;

@@ -1,15 +1,13 @@
 package com.darvybm.project.apidevelopment.dto.request;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.UUID;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -28,12 +26,12 @@ public class ProductRequest {
     private Double price;
 
     @NotNull(message = "Stock quantity cannot be null")
-    @Positive(message = "Stock quantity must be a positive value")
+    @PositiveOrZero(message = "Stock quantity must be a positive value")
     private Integer stockQuantity;
 
     @Size(max = 100, message = "Supplier cannot be longer than 100 characters")
     private String supplier;
 
-    @NotBlank(message = "Category ID is required")
-    private String categoryId;
+    @NotNull(message = "Category ID is required")
+    private UUID categoryId;
 }
