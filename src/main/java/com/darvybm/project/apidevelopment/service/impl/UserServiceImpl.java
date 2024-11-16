@@ -48,6 +48,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(UUID id, UserRequest userRequest) {
+
+        if (userRepository.existsByUsername(userRequest.getUsername())) {
+            throw new BadRequestException("Username already exists.", "The provided username is already in use.");
+        }
+
         try {
             User user = myFindById(id);
             modelMapper.map(userRequest, user);

@@ -11,6 +11,8 @@ java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(21)
 	}
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
 }
 
 configurations {
@@ -35,5 +37,6 @@ dependencies {
 	implementation 'org.modelmapper:modelmapper:2.3.5'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	implementation 'net.datafaker:datafaker:2.4.1'
 
 }
