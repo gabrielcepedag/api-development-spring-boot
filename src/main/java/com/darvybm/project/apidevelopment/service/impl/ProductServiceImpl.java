@@ -50,10 +50,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product update(UUID id, ProductRequest productRequest) {
         Product product = findById(id);
-<<<<<<< Updated upstream
-=======
         Category category = categoryService.getById(productRequest.getCategoryId());
->>>>>>> Stashed changes
         try {
             modelMapper.map(productRequest, product);
             product.setCategory(category);
